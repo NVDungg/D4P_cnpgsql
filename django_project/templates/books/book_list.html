@@ -5,7 +5,8 @@
 {% block content %}
     {% for book in book_list %}
         <div>
-            <h2><a href="{% url 'book_detail' book.pk %}">{{book.title}}</a></h2>
+            <h2><a href="{{ book.get_absolute_url }}">{{book.title}}</a></h2>
+            {% comment "other way get id" %} other way get id by get_absulute_url {% endcomment %}
         </div>
     {% endfor %}
 {% endblock content %}

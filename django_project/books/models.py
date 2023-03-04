@@ -9,7 +9,7 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     def get_absolute_url(self):
-        return reverse("book_detail", kwargs={"pk": self.pk})
+        return reverse("book_detail", args=[str(self.id)])      # other way call id. make it to string return in http
     
     def __str__(self):
         return self.title
