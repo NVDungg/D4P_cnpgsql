@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #Local
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
+    'books.apps.BooksConfig',
 ]
 
 MIDDLEWARE = [
@@ -167,4 +168,5 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = "admin@djangobookstore.com" #update via DEFAULT_FROM_EMAIL
