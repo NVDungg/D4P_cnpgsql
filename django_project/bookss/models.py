@@ -19,5 +19,5 @@ class Book(models.Model):
     
 class Review(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="reviews")
-    review = models.CharField(max_length=255)
+    review = models.CharField(max_length=500)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
