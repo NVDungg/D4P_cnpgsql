@@ -1,12 +1,15 @@
 from .models import Book
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 # Create your views here.
 
-class BookListView(ListView):
+class BookListView(LoginRequiredMixin, ListView):
     model = Book
     context_object_name = "book_list"
     template_name = "books/book_list.html"
+    login_url = "account_login"             #redirec to login if not logged
 
-class BookDetailView(DetailView):
+class BookDetailView(LoginRequiredMixin, DetailView):
     model = Book
     template_name = "books/book_detail.html"
+    login_url = "account_login"
