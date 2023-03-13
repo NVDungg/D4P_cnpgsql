@@ -10,6 +10,7 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     about = models.CharField(max_length=500)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    cover = models.ImageField(upload_to="cover/", blank=True)
 
     def get_absolute_url(self):
         return reverse("book_detail", args=[str(self.id)])      # other way call id. make it to string return in http
