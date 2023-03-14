@@ -41,12 +41,15 @@
                         <a  class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
                     </li>
                     {% endif %}
+                    <li>
+                        <form method="GET" class="d-flex" action="{% url 'search_results' %}">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-\
+                            label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </li>
                 </ul>
-                <form method="GET" class="d-flex" action="{% url 'search_results' %}">
-                    <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-\
-                    label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                
             </div>
         </div>
     </nav>
