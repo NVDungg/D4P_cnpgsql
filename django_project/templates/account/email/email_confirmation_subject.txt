@@ -1,0 +1,5 @@
+{% load i18n %}
+{% autoescape off %} {% comment %}By default it is “on” and protects against security issues like cross site scripting.
+But since we can trust the content of the text here, it is turned off. {% endcomment %}
+{% blocktrans %}Please Confirm Your Sign Up{% endblocktrans %}
+{% endautoescape %}

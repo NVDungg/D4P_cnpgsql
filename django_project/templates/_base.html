@@ -24,6 +24,9 @@
             <div class=""collapse navbar-collapse" id="navbarCollapse"">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'book_list' %}">Books</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{% url 'about'%}" class="nav-link">About</a>
                     </li>
                     {% if user.is_authenticated %}
@@ -38,7 +41,15 @@
                         <a  class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
                     </li>
                     {% endif %}
+                    <li>
+                        <form method="GET" class="d-flex" action="{% url 'search_results' %}">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-\
+                            label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </li>
                 </ul>
+                
             </div>
         </div>
     </nav>
