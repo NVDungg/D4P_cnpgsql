@@ -3,12 +3,59 @@
 {% block title %}Books{% endblock title %} 
 
 {% block content %}
-    {% for book in book_list %}
-        <div>
-            <h2><a href="{{ book.get_absolute_url }}">{{book.title}}</a></h2>
-            {% comment "other way get id" %} other way get id by get_absulute_url
-                no need to use url tag 
-            {% endcomment %}
+<main>
+    
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Album example</h1>
+          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+          <p>
+            <a href="#" class="btn btn-primary my-2">Main call to action</a>
+            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          </p>
         </div>
-    {% endfor %}
+      </div>
+    </section>
+    
+    
+    <div class="album py-5 bg-light">
+      <div class="container">
+  
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for book in book_list %}
+          <div class="col">
+            <div class="card shadow-sm">
+              {% if book.cover %}
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{ book.cover.url }}" alt="{{ book.title }}">
+              {% endif %}
+              
+              <div class="card-body">
+                <h3><a href="{{ book.get_absolute_url }}">{{book.title}}</a></h3>
+                {% comment "other way get id" %} other way get id by get_absulute_url
+                no need to use url tag 
+                {% endcomment %}
+                <p class="card-text">Click From More Detail</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </div>
+                  <small class="text-muted">9 mins</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+    
+  </main>
+    
+        <div>
+            <h2></h2>
+            
+        </div>
+    
 {% endblock content %}

@@ -5,6 +5,11 @@ body{
 
 h1{
     color: red;
+    text-decoration: none;
+}
+
+a{
+    text-decoration: none;
 }
 
 img.bookcover {
