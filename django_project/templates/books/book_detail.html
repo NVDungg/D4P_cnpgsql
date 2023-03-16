@@ -3,20 +3,66 @@
 {% block title %}{{ object.title }}{% endblock title %}
 
 {% block content %}
-    <div class="book-detail">
-        {% if book.cover %}
-        <img class="bookcover" src="{{ book.cover.url}}" alt="{{ book.title }}">
-        {% endif %}
-        
-        <h2><a href="">{{ object.title }}</a></h2>
-        <p>Author: {{ object.author }}</p>
-        <p>About: {{book.about}}</p>
-        <p>Price: {{ object.price }}</p>
-    </div>
-    <h3>Reviews</h3>
-    <ul>
-        {% for review in book.reviews.all %}
-            <li>{{review.review}} ({{review.author}})</li>
-        {% endfor %}
-    </ul>
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-7 pt-5 mb-5 align-self-center">
+                <div class="promo pe-md-3 pe-lg-5">
+                    <h1 class="headline mb-3">
+                        {{ book.title }}  
+                    </h1>
+                    <div class="subheadline mb-4">
+                        <h3>Author: {{ book.author }}</h3>
+                    </div>
+                    
+                    <div class="hero-quotes mt-5">
+                        <div id="quotes-carousel" class="quotes-carousel carousel slide carousel-fade mb-5" data-bs-ride="carousel" data-bs-interval="8000">
+                            <ol class="carousel-indicators">
+                                <li data-bs-target="#quotes-carousel" data-bs-slide-to="0" class=""></li>
+                                <li data-bs-target="#quotes-carousel" data-bs-slide-to="1" class=""></li>
+                                <li data-bs-target="#quotes-carousel" data-bs-slide-to="2" class="active" aria-current="true"></li>
+                            </ol>
+                          
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <blockquote class="quote p-4 theme-bg-light">
+                                        "{{ book.about }}"     
+                                    </blockquote><!--//item-->
+                                    <div class="source row gx-md-3 gy-3 gy-md-0 align-items-center">
+                                        <div class="col source-info text-center text-md-start">
+                                            <div class="source-name">Reviewer: {{ object.author_review}}</div>
+                                        </div><!--//col-->
+                                    </div><!--//source-->
+                                </div><!--//carousel-item-->
+                            </div><!--//carousel-inner-->
+                        </div><!--//quotes-carousel-->
+
+                        <div class="cta-holder row gx-md-3 gy-3 gy-md-0">
+                            <div class="col-12 col-md-auto">
+                                <a class="btn btn-text w-100" href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/devbook-free-bootstrap-5-book-ebook-landing-page-template-for-developers/"> Price: ${{ book.price }}</a>
+                            </div>
+                        </div><!--//cta-holder-->
+                        
+                    </div><!--//hero-quotes-->
+                </div><!--//promo-->
+            </div><!--col-->
+            <div class="col-12 col-md-5 mb-5 align-self-center">
+                <div class="book-cover-holder">
+                    {% if book.cover %}
+                        <img class="img-fluid book-cover" src="{{ book.cover.url}}" alt="{{ book.title }}">
+                    {% endif %}
+                    </div>
+                </div><!--//book-cover-holder-->
+            </div><!--col-->
+            <ul>
+                <h3>Reviews</h3>
+                {% for review in book.reviews.all %}
+                    <li>{{review.review}} ({{review.author}})</li>
+                {% endfor %}
+            </ul>
+        </div><!--//row-->
+    </div><!--//container-->
+</section>
+    
+    
 {% endblock content %}
