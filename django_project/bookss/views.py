@@ -31,7 +31,7 @@ class BookCreateView(LoginRequiredMixin, CreateView):
     template_name = "books/book_create.html"
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
+        form.instance.author_review = self.request.user
         return super().form_valid(form)
 
 class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -75,7 +75,7 @@ class ReviewPost(LoginRequiredMixin, SingleObjectMixin, FormView):
     def form_valid(self, form):
         comment = form.save(commit=False)
         form.instance.author = self.request.user    ##set author it instance the one who create comment
-        comment.article = self.object
+        comment.book = self.object
         comment.save()
         return super().form_valid(form)
 
