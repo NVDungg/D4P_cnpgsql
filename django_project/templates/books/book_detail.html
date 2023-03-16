@@ -66,6 +66,7 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         {{ form|crispy }} 
+                        <button class="" type="submit">Comment</button>
                     </form>
                 {% endif %}
             </ul>
