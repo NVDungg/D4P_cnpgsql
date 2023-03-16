@@ -1,8 +1,9 @@
 from .models import Book
 from django.db.models import Q
-from django.urls import reverse_lazy
-from .forms import EditBookForm, CreateBookForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy, reverse
+from .forms import EditBookForm, CreateBookForm, CreateReviewForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView, View
+from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 # Create your views here.
 
@@ -12,11 +13,17 @@ class BookListView(LoginRequiredMixin, ListView):
     template_name = "books/book_list.html"
     login_url = "account_login"             #redirec to login if not logged
 
-class BookDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    model = Book
-    template_name = "books/book_detail.html"
+class BookDetailView(LoginRequiredMixin, View):    #PermissionRequiredMixin,
     login_url = "account_login"
-    permission_required = ("books.special_status", )
+    #permission_required = ("books.special_status", )
+
+    def get(self, request, *args, **kwargs):
+        view = ReviewGet.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = ReviewPost.as_view()
+        return view(request, *args, **kwargs)
 
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
@@ -45,6 +52,39 @@ class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
         return obj.author_review == self.request.user
     
+
+class ReviewGet(LoginRequiredMixin, DetailView):
+    model = Book
+    template_name = "books/book_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CreateReviewForm()
+        return context
+
+class ReviewPost(LoginRequiredMixin, SingleObjectMixin, FormView):
+    model = Book
+    form_class = CreateReviewForm
+    template_name = "books/book_detail.html"
+
+    def post(self, request, *args, **kwargs):
+        """grab the book pk from the URL"""
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        form.instance.author = self.request.user    ##set author it instance the one who create comment
+        comment.article = self.object
+        comment.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        article = self.get_object()
+        return reverse("article_detail", kwargs={"pk": article.pk})    
+
+
+
 class SearchResultsListView(ListView):
     model = Book
     context_object_name = "book_list"
